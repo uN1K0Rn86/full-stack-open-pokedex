@@ -7,3 +7,11 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+secrets.md
+Dockerfile
+fly.toml
+.dockerignore
+
+.env
+**/fly-deploy.yml

@@ -6,4 +6,10 @@ describe('Pokedex', () => {
     await expect(page.getByText('ivysaur')).toBeVisible()
     await expect(page.getByText('Pokémon and Pokémon character names are trademarks of Nintendo.')).toBeVisible()
   })
+
+  test('navigating to Charmander page works', async ({ page }) => {
+    await page.goto('/')
+    await page.getByText('charmander').click()
+    await expect(page.getByText('solar power')).toBeVisible()
+  })
 })

@@ -45,21 +45,19 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: Notify Discord on Success
-        uses: rjstone/discord-webhook-notify@v2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554
         if: ${{ github.event_name == 'push' && env.CONDITION == 'false' && success() }}
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          username: uN1K0Rn86
-          severity: info
-          text: Successfully deployed
+          args: 'Successfully deployed Pokedex'
       - name: Notify Discord on Failure
-        uses: rjstone/discord-webhook-notify@v2
-        if: ${{ github.event_name == 'push' && env.CONDITION == 'false' && failure() }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554
+        if: ${{ github.event_name == 'push' && env.CONDITION == 'false' && success() }}
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-          username: uN1K0Rn86
-          severity: error
-          text: Deployment failed
+          args: 'Failed to deploy Pokedex'
 
   tag_release:
     if: ${{ github.event_name == 'push' && github.env.CONDITION == 'false' }}

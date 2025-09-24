@@ -45,19 +45,17 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: Notify Discord on Success
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554
-        if: ${{ github.event_name == 'push' && env.CONDITION == 'false' && success() }}
+        uses: Retr0-01/better-discord-notification@main
         with:
-          args: 'Successfully deployed Pokedex'
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }} 
+          msg-content: 'Successfully deployed pokedex to https://full-stack-open-pokedex-sparkling-river-6601.fly.dev/'
+          ignore-hidden: 'false'
       - name: Notify Discord on Failure
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554
-        if: ${{ github.event_name == 'push' && env.CONDITION == 'false' && failure() }}
+        uses: Retr0-01/better-discord-notification@main
         with:
-          args: 'Failed to deploy Pokedex'
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }} 
+          msg-content: 'Failed to deploy pokedex, commit: ${{ github.sha }}'
+          ignore-hidden: 'false'
 
   tag_release:
     if: ${{ github.event_name == 'push' && github.env.CONDITION == 'false' }}

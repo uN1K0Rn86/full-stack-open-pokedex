@@ -19,4 +19,4 @@ app.get('/health', (req, res) => {
   res.send('ok')
 })
 
-console.log(PORT)
+console.log(PORT, '1')
